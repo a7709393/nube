@@ -215,6 +215,7 @@ body {
   border-radius: 3px;
   overflow: hidden;
   cursor: pointer;
+  touch-action: manipulation;
   transition: transform 0.25s cubic-bezier(.22,.68,0,1.2), box-shadow 0.25s;
   display: flex;
   flex-direction: column;
@@ -785,22 +786,6 @@ function handleCardOpen(e) {
   openModal(parseInt(card.dataset.idx));
 }
 grid.addEventListener('click', handleCardOpen);
-
-// 手機觸控：區分點擊與滑動，移動超過 10px 視為滑動不觸發
-let touchStartX = 0, touchStartY = 0;
-grid.addEventListener('touchstart', function(e) {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-grid.addEventListener('touchend', function(e) {
-  const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
-  const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
-  if (dx > 10 || dy > 10) return; // 滑動，略過
-  const card = e.target.closest('[data-idx]');
-  if (!card) return;
-  e.preventDefault();
-  openModal(parseInt(card.dataset.idx));
-});
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal({ target: document.getElementById('modal-overlay') });
