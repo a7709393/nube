@@ -521,16 +521,18 @@ footer {
   }
   .modal-img-panel {
     min-height: unset;
-    height: 52vw;
-    max-height: 280px;
-    padding: 16px;
+    height: 72vw;
+    max-height: 380px;
+    padding: 12px;
   }
   .modal-img-panel img { max-height: 100%; }
   .modal-info {
-    padding: 24px 20px 36px;
-    overflow-y: unset;  /* 交給 modal 捲動，不要雙層捲軸 */
-    gap: 14px;
+    padding: 20px 18px 32px;
+    overflow-y: unset;
+    gap: 12px;
   }
+  .modal-spec-label { font-size: 9px; }
+  .modal-spec-value { font-size: 12px; line-height: 1.6; }
   .modal-price-wrap {
     margin-top: 16px;  /* 取消 auto，讓價格正常流排 */
   }
@@ -623,17 +625,12 @@ footer {
       <img id="modal-img" src="" alt="">
     </div>
     <div class="modal-info">
-      <div class="modal-cat-badge" id="modal-cat-badge"></div>
       <div class="modal-id" id="modal-id"></div>
       <h2 class="modal-name" id="modal-name"></h2>
       <div class="modal-divider"></div>
       <div>
         <div class="modal-spec-label">尺寸規格</div>
         <div class="modal-spec-value" id="modal-dim"></div>
-      </div>
-      <div>
-        <div class="modal-spec-label">商品分類</div>
-        <div class="modal-spec-value" id="modal-cat-text"></div>
       </div>
       <div class="modal-price-wrap">
         <div class="modal-price-label">建議售價</div>
