@@ -760,14 +760,9 @@ function openModal(idx) {
   document.getElementById('modal-dim').innerHTML = p.dim
     ? p.dim.replace(/\s{2,}/g, '<br>')
     : '規格請洽詢';
-  document.getElementById('modal-cat-text').textContent = CAT_LABEL[p.cat] || p.cat;
   document.getElementById('modal-price').innerHTML = p.price
     ? 'NT$' + p.price.toLocaleString() + '<small> TWD</small>'
     : '—';
-
-  const badge = document.getElementById('modal-cat-badge');
-  badge.textContent = p.cat;
-  badge.style.background = color;
 
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
