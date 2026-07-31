@@ -239,7 +239,10 @@ body {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(.22,.68,0,1.2);
+  pointer-events: none;
 }
+.card-cat-badge { pointer-events: none; }
+.card-body { pointer-events: none; }
 .card:hover .card-img-wrap img { transform: scale(1.06); }
 
 .card-cat-badge {
@@ -711,7 +714,7 @@ function render() {
     const price = p.price ? 'NT$' + p.price.toLocaleString() : '—';
     const delay = Math.min(i * 30, 400);
     return `
-    <article class="card" style="animation-delay:${delay}ms" onclick="openModal(${allProducts.indexOf(p)})">
+    <article class="card" style="animation-delay:${delay}ms" data-idx="${allProducts.indexOf(p)}" role="button" tabindex="0">
       <div class="card-img-wrap">
         <img src="images/${p.img}" alt="${p.name}" loading="lazy">
         <div class="card-cat-badge" style="background:${color}">${p.cat}</div>
@@ -773,6 +776,21 @@ function closeModal(e) {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// 用事件委派取代 onclick，iOS Safari 相容性更好
+const grid = document.getElementById('product-grid');
+function handleCardOpen(e) {
+  const card = e.target.closest('[data-idx]');
+  if (!card) return;
+  openModal(parseInt(card.dataset.idx));
+}
+grid.addEventListener('click', handleCardOpen);
+grid.addEventListener('touchend', function(e) {
+  const card = e.target.closest('[data-idx]');
+  if (!card) return;
+  e.preventDefault();
+  openModal(parseInt(card.dataset.idx));
+});
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal({ target: document.getElementById('modal-overlay') });
